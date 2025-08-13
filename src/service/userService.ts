@@ -9,9 +9,10 @@ import type { User, UserCreateInput, UserUpdateInput, PublicUser } from '../type
 import type { SessionInfo } from '../types/auth';
 import handleDBError from './_handleDBError';
 
-const makeExposedUser = ({ id, name, email }: User): PublicUser => ({
+const makeExposedUser = ({ id, voornaam, achternaam, email }: User): PublicUser => ({
   id,
-  name,
+  voornaam,
+  achternaam,
   email,
 });
 
@@ -86,7 +87,8 @@ export const login = async (
 };
 
 export const register = async ({
-  name,
+  voornaam,
+  achternaam,
   email,
   password,
 }: UserCreateInput): Promise<string> => {
@@ -95,7 +97,8 @@ export const register = async ({
 
     const user = await prisma.user.create({
       data: {
-        name,
+        voornaam,
+        achternaam,
         email,
         password_hash: passwordHash,
         roles: [Role.USER],

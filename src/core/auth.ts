@@ -1,8 +1,9 @@
-import type { Next } from 'koa';
-import config from 'config';
-import type { KoaContext } from '../types/koa';
-import * as userService from '../service/user';
-
+// src/core/auth.ts
+import type { Next } from 'koa'; // 👈 1
+import type { KoaContext } from '../types/koa'; // 👈 1
+import * as userService from '../service/userService'; // 👈 1
+import config from 'config'; 
+// 👇 1
 const AUTH_MAX_DELAY = config.get<number>('auth.maxDelay');
 
 export const requireAuthentication = async (ctx: KoaContext, next: Next) => {

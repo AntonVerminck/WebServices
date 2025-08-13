@@ -4,11 +4,11 @@ import config from 'config';
 import { getLogger } from './core/logging';
 import { initializeData, shutdownData } from './data';
 import installMiddlewares from './core/installMiddlewares';
-import installRest from './rest';
+import installRest from './REST';
 import type {
   KoaApplication,
-  BudgetAppContext,
-  BudgetAppState,
+  FilmAppContext,
+  FilmAppState,
 } from './types/koa';
 
 const PORT = config.get<number>('port');
@@ -20,7 +20,7 @@ export interface Server {
 }
 
 export default async function createServer(): Promise<Server> {
-  const app = new Koa<BudgetAppState, BudgetAppContext>();
+  const app = new Koa<FilmAppState, FilmAppContext>();
 
   installMiddlewares(app);
   await initializeData();
@@ -47,3 +47,4 @@ export default async function createServer(): Promise<Server> {
     },
   };
 }
+

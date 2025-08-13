@@ -13,34 +13,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Place {
-  @@map("places")             // Set the table name to "places"
 
-  id           Int            @id @default(autoincrement()) @db.UnsignedInt
-  name         String         @unique(map: "idx_place_name_unique") @db.VarChar(255)
-  rating       Int?           @db.UnsignedTinyInt
-  transactions Transaction[]
+model Screening {
+  @@map("Screening")
+
+  id         Int      @id @default(autoincrement()) @db.UnsignedInt
+  film_id     Int     @db.UnsignedInt
+  naam       String   @db.VarChar(255)
+  huisnummer Int      @db.UnsignedTinyInt
+  postcode   Int      @db.UnsignedInt
+  straat     String   @db.VarChar(255)
+  datum  DateTime @db.DateTime(0)
+
+  Film Film @relation(fields: [film_id], references: [id], map: "fk_screening_film")
 }
 
-model Transaction {
-  @@map("transactions") // Set the table name to "transactions"
+model Film {
+  @@map("films")
 
-  id       Int          @id @default(autoincrement()) @db.UnsignedInt
-  amount   Int
-  date     DateTime     @db.DateTime(0)
-  user_id  Int          @db.UnsignedInt
-  place_id Int          @db.UnsignedInt
-  place   Place         @relation(fields: [place_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_transaction_place")
-  user    User          @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_transaction_user")
+  id         Int         @id @default(autoincrement()) @db.UnsignedInt
+  titel      String      @db.VarChar(255)
+  regiseur   String      @db.VarChar(255)
+  reviews      Review[]
+  screenings Screening[]
+}
+
+model Review {
+  id       Int           @id @default(autoincrement()) @db.UnsignedInt
+  user_id  Int            @db.UnsignedInt
+  film_id  Int             @db.UnsignedInt
+  rating   Int             @db.UnsignedInt
+  review_titel String      @db.VarChar(255)
+  review_content String     @db.VarChar(255)
+  user     User      @relation(fields: [user_id],onDelete: NoAction, onUpdate: NoAction , references: [id], map: "fk_userfilm_user")
+  film     Film      @relation(fields: [film_id], onDelete: NoAction, onUpdate: NoAction,references: [id], map: "fk_userfilm_film")
+
+  @@unique([user_id, film_id])  
+  @@map("user_film")       // Table name in DB
 }
 
 model User {
   @@map("users")               // Set the table name to "users"
 
   id            Int            @id @default(autoincrement()) @db.UnsignedInt
-  name          String         @db.VarChar(255)
+  voornaam      String         @db.VarChar(255)
+  achternaam    String         @db.VarChar(255)
   email         String         @unique(map: "idx_user_email_unique") @db.VarChar(255)
   password_hash String         @db.VarChar(255)
   roles         Json
-  transactions  Transaction[]
+  Reviews       Review[]
 }

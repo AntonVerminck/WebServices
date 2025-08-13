@@ -1,6 +1,9 @@
-import ServiceError from '../core/serviceError';
+// src/service/_handleDBError.ts
+import ServiceError from '../core/serviceError'; // 👈 2
 
+// 👇 1
 const handleDBError = (error: any) => {
+  // 👇 3
   const { code = '', message } = error;
 
   if (code === 'P2002') {
@@ -37,11 +40,11 @@ const handleDBError = (error: any) => {
     switch (true) {
       case message.includes('place_id'):
         throw ServiceError.conflict(
-          'This place is still linked to transactions',
+          'This place does not exist or is still linked to transactions',
         );
       case message.includes('user_id'):
         throw ServiceError.conflict(
-          'This user is still linked to transactions',
+          'This user does not exist or is still linked to transactions',
         );
     }
   }
@@ -50,4 +53,4 @@ const handleDBError = (error: any) => {
   throw error;
 };
 
-export default handleDBError;
+export default handleDBError; // 👈 1

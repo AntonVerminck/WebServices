@@ -1,58 +1,23 @@
 import Router from '@koa/router';
-import installTransactionRouter from './transaction';
+import installScreeningRouter from './screening';
 import installHealthRouter from './health';
-import installPlacesRouter from './place';
-import installUserRouter from './user';
+import installFilmRouter from './film';
 import installSessionRouter from './session';
-import type { BudgetAppContext, BudgetAppState, KoaApplication } from '../types/koa';
+import installUserRouter from './user';
+import installReviewRouter from './review';
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     Base:
- *       required:
- *         - id
- *       properties:
- *         id:
- *           type: integer
- *           format: "int32"
- *   parameters:
- *     idParam:
- *       in: path
- *       name: id
- *       description: Id of the item to fetch/update/delete
- *       required: true
- *       schema:
- *         type: integer
- *         format: "int32"
- *   securitySchemes:
- *     bearerAuth: # arbitrary name for the security scheme
- *       type: http
- *       scheme: bearer
- *       bearerFormat: JWT # optional, arbitrary value for documentation purposes
- *   responses:
- *     400BadRequest:
- *       description: You provided invalid data
- *     401Unauthorized:
- *       description: You need to be authenticated to access this resource
- *     403Forbidden:
- *       description: You don't have access to this resource
- *     404NotFound:
- *       description: The requested resource could not be found
- */
+import type { FilmAppContext, FilmAppState, KoaApplication } from '../types/koa';
 
 export default (app: KoaApplication) => {
-  const router = new Router<BudgetAppState, BudgetAppContext>({
+  const router = new Router<FilmAppState, FilmAppContext>({
     prefix: '/api',
   });
-
-  installTransactionRouter(router);
+  installUserRouter(router)
+  installScreeningRouter(router)
+  installFilmRouter(router)
   installHealthRouter(router);
-  installPlacesRouter(router);
-  installUserRouter(router);
   installSessionRouter(router);
+  installReviewRouter(router)
 
-  app.use(router.routes())
-    .use(router.allowedMethods());
+  app.use(router.routes()).use(router.allowedMethods());
 };

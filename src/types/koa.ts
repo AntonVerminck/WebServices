@@ -2,12 +2,13 @@ import type { ParameterizedContext } from 'koa';
 import type Application from 'koa';
 import type Router from '@koa/router';
 import type { SessionInfo } from './auth';
-
-export interface BudgetAppState {
+// 👇 1
+export interface FilmAppState {
   session: SessionInfo;
 }
 
-export interface BudgetAppContext<
+// 👇 2
+export interface FilmAppContext<
   Params = unknown,
   RequestBody = unknown,
   Query = unknown,
@@ -19,18 +20,22 @@ export interface BudgetAppContext<
   params: Params;
 }
 
+// 👇 3
 export type KoaContext<
   ResponseBody = unknown,
   Params = unknown,
   RequestBody = unknown,
   Query = unknown,
-> =
-  ParameterizedContext<
-    BudgetAppState,
-    BudgetAppContext<Params, RequestBody, Query>,
-    ResponseBody
-  >;
+> = ParameterizedContext<
+  // 👇 4
+  FilmAppState,
+  FilmAppContext<Params, RequestBody, Query>,
+  ResponseBody
+>;
 
-export interface KoaApplication extends Application<BudgetAppState, BudgetAppContext> {}
+// 👇 5
+export interface KoaApplication
+  extends Application<FilmAppState, FilmAppContext> {}
 
-export interface KoaRouter extends Router<BudgetAppState, BudgetAppContext> {}
+// 👇 5
+export interface KoaRouter extends Router<FilmAppState, FilmAppContext> {}

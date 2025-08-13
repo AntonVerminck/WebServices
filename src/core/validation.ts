@@ -1,8 +1,10 @@
-import type { Schema, SchemaLike } from 'joi';
-import Joi from 'joi';
-import type { KoaContext } from '../types/koa';
-import type { Next } from 'koa';
+// src/core/validation.ts
+import type { Schema, SchemaLike } from 'joi'; // 👈 10
+import Joi from 'joi'; // 👈 1
+import type { KoaContext } from '../types/koa'; // 👈 4
+import type { Next } from 'koa'; // 👈 4
 
+// 👇 8
 const JOI_OPTIONS: Joi.ValidationOptions = {
   abortEarly: true, // stop when first error occured
   allowUnknown: false, // disallow unknown fields
@@ -10,10 +12,13 @@ const JOI_OPTIONS: Joi.ValidationOptions = {
   presence: 'required', // default require all fields
 };
 
+// 👇 10
 type RequestValidationSchemeInput = Partial<
   Record<'params' | 'body' | 'query', SchemaLike>
 >;
 type RequestValidationScheme = Record<'params' | 'body' | 'query', Schema>;
+
+
 
 const cleanupJoiError = (error: Joi.ValidationError) => {
   const errorDetails = error.details.reduce(
@@ -35,6 +40,7 @@ const cleanupJoiError = (error: Joi.ValidationError) => {
 
   return Object.fromEntries(errorDetails);
 };
+// 👇 2
 
 const validate = (scheme: RequestValidationSchemeInput | null) => {
   const parsedSchema: RequestValidationScheme = {
@@ -88,4 +94,5 @@ const validate = (scheme: RequestValidationSchemeInput | null) => {
   };
 };
 
-export default validate;
+
+export default validate; // 👈 2

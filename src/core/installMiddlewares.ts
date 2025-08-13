@@ -2,19 +2,17 @@ import config from 'config';
 import bodyParser from 'koa-bodyparser';
 import koaCors from '@koa/cors';
 import koaHelmet from 'koa-helmet';
-import { koaSwagger } from 'koa2-swagger-ui';
-import swaggerJsdoc from 'swagger-jsdoc';
-import swaggerOptions from '../../swagger.config';
-import type { KoaApplication } from '../types/koa';
+
 import { getLogger } from './logging';
 import ServiceError from './serviceError';
+import { KoaApplication } from '../types/koa';
 
 const NODE_ENV = config.get<string>('env');
 const CORS_ORIGINS = config.get<string[]>('cors.origins');
 const CORS_MAX_AGE = config.get<number>('cors.maxAge');
 const isDevelopment = NODE_ENV === 'development';
 
-export default function installMiddlewares(app: KoaApplication) {
+export default function installMiddlewares(app: KoaApplication ) {
   app.use(koaCors({
     origin: (ctx) => {
       if (CORS_ORIGINS.indexOf(ctx.request.header.origin!) !== -1) {
@@ -99,18 +97,7 @@ export default function installMiddlewares(app: KoaApplication) {
     }
   });
 
-  if (isDevelopment) {
-    const spec = swaggerJsdoc(swaggerOptions) as Record<string, unknown>;
-  
-    app.use(
-      koaSwagger({
-        routePrefix: '/swagger',
-        specPrefix: '/swagger.json',
-        exposeSpec: true,
-        swaggerOptions: { spec },
-      }),
-    );
-  }
+
   
   app.use(async (ctx, next) => {
     await next();

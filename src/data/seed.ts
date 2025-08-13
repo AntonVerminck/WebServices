@@ -1,139 +1,89 @@
-import { PrismaClient } from '@prisma/client';
-import { hashPassword } from '../core/password';
+// src/data/seed.ts
+import { PrismaClient } from '@prisma/client'; 
 import Role from '../core/roles';
+const prisma = new PrismaClient(); 
+import { hashPassword } from '../core/password';
 
-const prisma = new PrismaClient();
-
+// 👇 2
 async function main() {
   // Seed users
   // ==========
   const passwordHash = await hashPassword('12345678');
-
   await prisma.user.createMany({
     data: [
-      {
+       {
         id: 1,
-        name: 'Thomas Aelbrecht',
-        email: 'thomas.aelbrecht@hogent.be',
+        voornaam: 'Anton',
+        achternaam: 'Verminck',
+        email: 'anton@email.be',
         password_hash: passwordHash,
         roles: JSON.stringify([Role.ADMIN, Role.USER]),
       },
       {
         id: 2,
-        name: 'Pieter Van Der Helst',
-        email: 'pieter.vanderhelst@hogent.be',
+        voornaam: 'Tom',
+        achternaam: 'Aat',
+        email: 'tom@email.be',
         password_hash: passwordHash,
         roles: JSON.stringify([Role.USER]),
+
       },
-      {
-        id: 3,
-        name: 'Karine Samyn',
-        email: 'karine.samyn@hogent.be',
-        password_hash: passwordHash,
-        roles: JSON.stringify([Role.USER]),
-      },
+    
+     
     ],
   });
 
-  // Seed places
+  // Seed films
   // ===========
-  await prisma.place.createMany({
+  await prisma.film.createMany({
     data: [
       {
         id: 1,
-        name: 'Loon',
-        rating: 5,
+        titel: 'Superman',
+        regiseur: 'J. Gunn'
       },
       {
         id: 2,
-        name: 'Dranken Geers',
-        rating: 3,
-      },
-      {
-        id: 3,
-        name: 'Irish Pub',
-        rating: 4,
+        titel: 'Gauradians of the Galaxy',
+        regiseur: 'j. Gunn'
+
       },
     ],
   });
 
-  // Seed transactions
+  // Seed userfilm
   // =================
-  await prisma.transaction.createMany({
+  await prisma.review.createMany({
     data: [
       // User Thomas
       // ===========
       {
         id: 1,
         user_id: 1,
-        place_id: 1,
-        amount: 3500,
-        date: new Date(2021, 4, 25, 19, 40),
+        film_id: 1,
+        rating: 5,
+        review_titel: "Kan beter",
+        review_content: "Deze fim was een tegenslag"
       },
+    ],
+    });
+  await prisma.screening.createMany({
+    data: [
       {
-        id: 2,
-        user_id: 1,
-        place_id: 2,
-        amount: -220,
-        date: new Date(2021, 4, 8, 20, 0),
+        id: 1,
+        film_id: 1,
+        naam: "Kinepolis Gent",
+        huisnummer: 8,
+        straat: "Ter Platen",
+        postcode: 9000,
+        datum: new Date("2025-01-01")
       },
-      {
-        id: 3,
-        user_id: 1,
-        place_id: 3,
-        amount: -74,
-        date: new Date(2021, 4, 21, 14, 30),
-      },
-      // User Pieter
-      // ===========
-      {
-        id: 4,
-        user_id: 2,
-        place_id: 1,
-        amount: 4000,
-        date: new Date(2021, 4, 25, 19, 40),
-      },
-      {
-        id: 5,
-        user_id: 2,
-        place_id: 2,
-        amount: -220,
-        date: new Date(2021, 4, 9, 23, 0),
-      },
-      {
-        id: 6,
-        user_id: 2,
-        place_id: 3,
-        amount: -74,
-        date: new Date(2021, 4, 22, 12, 0),
-      },
-      // User Karine
-      // ===========
-      {
-        id: 7,
-        user_id: 3,
-        place_id: 1,
-        amount: 4000,
-        date: new Date(2021, 4, 25, 19, 40),
-      },
-      {
-        id: 8,
-        user_id: 3,
-        place_id: 2,
-        amount: -220,
-        date: new Date(2021, 4, 10, 10, 0),
-      },
-      {
-        id: 9,
-        user_id: 3,
-        place_id: 3,
-        amount: -74,
-        date: new Date(2021, 4, 19, 11, 30),
-      },
+ 
     ],
   });
 }
 
+// 👇 3
 main()
   .then(async () => {
     await prisma.$disconnect();

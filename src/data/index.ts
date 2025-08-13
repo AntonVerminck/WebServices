@@ -17,4 +17,9 @@ export async function shutdownData(): Promise<void> {
   await prisma?.$disconnect();
 
   getLogger().info('Database connection closed');
+
 }
+
+
+
+

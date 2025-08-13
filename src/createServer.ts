@@ -4,7 +4,7 @@ import config from 'config';
 import { getLogger } from './core/logging';
 import { initializeData, shutdownData } from './data';
 import installMiddlewares from './core/installMiddlewares';
-import installRest from './REST';
+import installRest from './rest';
 import type {
   KoaApplication,
   FilmAppContext,

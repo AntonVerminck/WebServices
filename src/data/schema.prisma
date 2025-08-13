@@ -14,8 +14,8 @@ datasource db {
 }
 
 
-model screening {
-  @@map("Screening")
+model Screening {
+  @@map("screening")
 
   id         Int      @id @default(autoincrement()) @db.UnsignedInt
   film_id     Int     @db.UnsignedInt

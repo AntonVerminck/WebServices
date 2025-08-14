@@ -1,15 +1,14 @@
 import type { Entity, ListResponse} from './common';
 
-
 export interface Film extends Entity {
-    titel: string;
-    regiseur: string;
+  titel: string;
+  regiseur: string;
 
 }
 
 export interface FilmCreateInput {
-    titel: string;
-    regiseur: string;
+  titel: string;
+  regiseur: string;
 }
 
 export interface FilmUpdateInput extends FilmCreateInput {}

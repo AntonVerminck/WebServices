@@ -19,7 +19,6 @@ import validate from '../core/validation';
 import { requireAuthentication, makeRequireRole, authDelay } from '../core/auth';
 import Role from '../core/roles';
 
-
 const checkUserId = (ctx: KoaContext<unknown, GetUserRequest>, next: Next) => {
   const { userId, roles } = ctx.state.session;
   const { id } = ctx.params;
@@ -79,7 +78,8 @@ const updateUserById = async (ctx: KoaContext<UpdateUserResponse, IdParams, Upda
 updateUserById.validationScheme = {
   params: { id: Joi.number().integer().positive() },
   body: {
-    name: Joi.string().max(255),
+    voornaam: Joi.string().max(255),
+    achternaam: Joi.string().max(255),
     email: Joi.string().email(),
   },
 };

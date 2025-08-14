@@ -16,15 +16,17 @@ export default function withServer(setter: (s: supertest.Agent) => void): void {
       data: [
         {
           id: 1,
-          name: 'Test User',
-          email: 'test.user@hogent.be',
+          voornaam: 'Test',
+          achternaam: 'User',
+          email: 'test.user@mail.be',
           password_hash: passwordHash,
           roles: JSON.stringify([Role.USER]),
         },
         {
           id: 2,
-          name: 'Admin User',
-          email: 'admin.user@hogent.be',
+          voornaam: 'Admin',
+          achternaam: 'User',
+          email: 'admin.user@mail.be',
           password_hash: passwordHash,
           roles: JSON.stringify([Role.ADMIN, Role.USER]),
         },
@@ -35,9 +37,9 @@ export default function withServer(setter: (s: supertest.Agent) => void): void {
   });
 
   afterAll(async () => {
-    await prisma.transaction.deleteMany();
+    await prisma.film.deleteMany();
     await prisma.user.deleteMany();
-    await prisma.place.deleteMany();
+    await prisma.review.deleteMany();
 
     await server.stop();
   });

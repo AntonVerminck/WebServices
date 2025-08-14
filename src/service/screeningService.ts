@@ -22,10 +22,9 @@ export const getAll = async (): Promise<Screening[]> => {
 
 export const getById = async (id: number): Promise<Screening> => {
 
-
   const screening = await prisma.screening.findUnique({
     where: {
-      id
+      id,
     },
     select: SCREENING_SELECT,
   });
@@ -48,12 +47,12 @@ export const create = async ({
   try {
     return await prisma.screening.create({
       data: {
-          film_id,
-          straat,
-          huisnummer,
-          naam,
-          postcode,
-          datum,
+        film_id,
+        straat,
+        huisnummer,
+        naam,
+        postcode,
+        datum,
       },
       select: SCREENING_SELECT,
     });
@@ -75,10 +74,10 @@ export const updateById = async (id: number, {
         id,
       },
       data: {
-          straat,
-          huisnummer,
-          naam,
-          postcode,
+        straat,
+        huisnummer,
+        naam,
+        postcode,
       },
       select: SCREENING_SELECT,
     });
@@ -91,7 +90,7 @@ export const deleteById = async (id: number): Promise<void> => {
   try {
     await prisma.screening.delete({
       where: {
-        id
+        id,
       },
     });
   } catch (error) {

@@ -28,12 +28,14 @@ describe('Users', () => {
       expect(response.body.items.length).toBe(2);
       expect(response.body.items).toEqual(expect.arrayContaining([{
         id: 1,
-        name: 'Test User',
-        email: 'test.user@hogent.be',
+        voornaam: 'Test',
+        achternaam: 'User',
+        email: 'test.user@mail.be',
       }, {
         id: 2,
-        name: 'Admin User',
-        email: 'admin.user@hogent.be',
+        voornaam: 'Admin',
+        achternaam: 'User',
+        email: 'admin.user@mail.be',
       }]));
     });
 
@@ -66,7 +68,8 @@ describe('Users', () => {
       expect(response.statusCode).toBe(200);
       expect(response.body).toMatchObject({
         id: 1,
-        name: 'Test User',
+        voornaam: 'Test',
+        achternaam: 'User',
       });
     });
 
@@ -76,7 +79,8 @@ describe('Users', () => {
       expect(response.statusCode).toBe(200);
       expect(response.body).toMatchObject({
         id: 1,
-        name: 'Test User',
+        voornaam: 'Test',
+        achternaam: 'User',
       });
     });
 
@@ -125,7 +129,8 @@ describe('Users', () => {
     it('should 200 and return the registered user', async () => {
       const response = await request.post(url)
         .send({
-          name: 'New User',
+          voornaam: 'New',
+          achternaam: 'User',
           email: 'new.user@hogent.be',
           password: '123456789101112',
         })
@@ -141,7 +146,8 @@ describe('Users', () => {
     it('should 200 and return the updated user', async () => {
       const response = await request.put(`${url}/1`)
         .send({
-          name: 'Changed name',
+          voornaam: 'Changed',
+          achternaam: 'name',
           email: 'new.user@hogent.be',
         })
         .set('Authorization', authHeader);
@@ -149,7 +155,8 @@ describe('Users', () => {
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual({
         id: 1,
-        name: 'Changed name',
+        voornaam: 'Changed',
+        achternaam: 'name',
         email: 'new.user@hogent.be',
       });
     });
@@ -157,7 +164,8 @@ describe('Users', () => {
     it('should 403 when not an admin and not own user id', async () => {
       const response = await request.put(`${url}/2`)
         .send({
-          name: 'Changed name',
+          voornaam: 'Changed',
+          achternaam: 'name',
           email: 'new.user@hogent.be',
         })
         .set('Authorization', authHeader);

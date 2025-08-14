@@ -12,7 +12,6 @@ import type {
 import { authDelay } from '../core/auth';
 import type { LoginResponse, LoginRequest } from '../types/user';
 
-
 const login = async (ctx: KoaContext<LoginResponse, void, LoginRequest>) => {
 
   const { email, password } = ctx.request.body;
@@ -37,10 +36,10 @@ export default function installSessionRouter(parent: KoaRouter) {
   });
 
   router.post(
-  '/',
-  authDelay,
-  validate(login.validationScheme),
-  login,
-);
+    '/',
+    authDelay,
+    validate(login.validationScheme),
+    login,
+  );
   parent.use(router.routes()).use(router.allowedMethods());
 }

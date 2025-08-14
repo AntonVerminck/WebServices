@@ -1,6 +1,5 @@
 import type { Entity, ListResponse} from './common';
 
-
 export interface Screening extends Entity {
   film_id: number
   postcode: number;

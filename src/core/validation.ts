@@ -18,8 +18,6 @@ type RequestValidationSchemeInput = Partial<
 >;
 type RequestValidationScheme = Record<'params' | 'body' | 'query', Schema>;
 
-
-
 const cleanupJoiError = (error: Joi.ValidationError) => {
   const errorDetails = error.details.reduce(
     (resultObj, { message, path, type }) => {
@@ -93,6 +91,5 @@ const validate = (scheme: RequestValidationSchemeInput | null) => {
     return next();
   };
 };
-
 
 export default validate; // 👈 2

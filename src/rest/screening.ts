@@ -11,11 +11,9 @@ import type {
 } from '../types/screening';
 import type { IdParams } from '../types/common';
 import Role from '../core/roles';
-import Joi from 'joi'
+import Joi from 'joi';
 import validate from '../core/validation'; 
 import { requireAuthentication, makeRequireRole } from '../core/auth';
-
-
 
 const createScreening = async (ctx: KoaContext<CreateScreeningResponse, void, CreateScreeningRequest>) => {
   const screening = await screeningService.create(ctx.request.body);
@@ -29,7 +27,7 @@ createScreening.validationScheme = {
   },
 };
 const getScreeningById = async (ctx: KoaContext<GetScreeningByIdResponse, IdParams>) => {
-  const screening = await screeningService.getById(Number(ctx.params.id))
+  const screening = await screeningService.getById(Number(ctx.params.id));
   ctx.body = screening;
 };
 getScreeningById.validationScheme = {
@@ -52,7 +50,7 @@ const deleteScreening = async (ctx: KoaContext<void, IdParams>) => {
   ctx.status = 204;
 };
 deleteScreening.validationScheme = {
-   params: {
+  params: {
     id: Joi.number().integer().positive(),
   },
 };
@@ -62,10 +60,11 @@ export default (parent: KoaRouter) => {
     prefix: '/screenings',
   });
 
-  const RequireAdmin = makeRequireRole(Role.ADMIN)
+  const RequireAdmin = makeRequireRole(Role.ADMIN);
   
   router.post('/', requireAuthentication , RequireAdmin , validate(createScreening.validationScheme) , createScreening);
-  router.get('/:id', requireAuthentication , validate(createScreening.validationScheme), validate(createScreening.validationScheme) ,getScreeningById);
+  router.get('/:id', requireAuthentication , validate(createScreening.validationScheme), 
+    validate(createScreening.validationScheme) ,getScreeningById);
   router.put('/:id', requireAuthentication ,RequireAdmin , validate(createScreening.validationScheme),updateScreening);
   router.delete('/:id',RequireAdmin , validate(createScreening.validationScheme) , deleteScreening);
 

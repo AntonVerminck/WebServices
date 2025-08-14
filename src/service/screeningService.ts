@@ -97,3 +97,15 @@ export const deleteById = async (id: number): Promise<void> => {
     throw handleDBError(error);
   }
 };
+
+export const getScreeningsByFilmId = async (id: number): Promise<void> => {
+  try {
+    await prisma.screening.delete({
+      where: {
+        id,
+      },
+    });
+  } catch (error) {
+    throw handleDBError(error);
+  }
+};

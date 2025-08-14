@@ -37,9 +37,9 @@ export default function withServer(setter: (s: supertest.Agent) => void): void {
   });
 
   afterAll(async () => {
+    await prisma.review.deleteMany();
     await prisma.film.deleteMany();
     await prisma.user.deleteMany();
-    await prisma.review.deleteMany();
 
     await server.stop();
   });

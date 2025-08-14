@@ -5,16 +5,15 @@ import type { KoaContext, KoaRouter } from '../types/koa';
 import type {
   CreateReviewRequest,
   CreateReviewResponse,
+  GetAllReviewsResponse,
   GetReviewByIdResponse,
   UpdateReviewRequest,
   UpdateReviewResponse,
 } from '../types/review';
 import type { IdParams } from '../types/common';
-import Joi from 'joi'
+import Joi from 'joi';
 import validate from '../core/validation'; 
 import { requireAuthentication } from '../core/auth';
-
-
 
 const createReview = async (ctx: KoaContext<CreateReviewResponse, void, CreateReviewRequest>) => {
   const review = await reviewService.create(ctx.request.body);
@@ -25,19 +24,29 @@ createReview.validationScheme = {
   body: {
     review_titel: Joi.string().min(1).max(255),
     review_content: Joi.string(),
-    rating: Joi.number().min(1).max(10)  
-  }
-}
+    rating: Joi.number().min(1).max(10),  
+  },
+};
+
+const getAllReviews = async (ctx: KoaContext<GetAllReviewsResponse>) => {
+  ctx.body = {
+    items: await reviewService.getAll(
+      ctx.state.session.userId,
+      ctx.state.session.roles,
+    ),
+  };
+};
+getAllReviews.validationScheme = null;
 
 const getReviewById = async (ctx: KoaContext<GetReviewByIdResponse, IdParams>) => {
-  const review = await reviewService.getById(Number(ctx.params.id))
+  const review = await reviewService.getById(Number(ctx.params.id));
   ctx.body = review;
 };
 getReviewById.validationScheme = {
   params: {
     id: Joi.number().integer().positive(),
   },
-}
+};
 
 const updateReview = async (ctx: KoaContext<UpdateReviewResponse, IdParams, UpdateReviewRequest>) => {
   const review = await reviewService.updateById(ctx.params.id, ctx.request.body);
@@ -49,10 +58,9 @@ updateReview.validationScheme = {
   body: {
     review_titel: Joi.string().min(1).max(255),
     review_content: Joi.string(),
-    rating: Joi.number().min(1).max(10)  
+    rating: Joi.number().min(1).max(10),  
   },
 };
-
 
 const deleteReview = async (ctx: KoaContext<void, IdParams>) => {
   reviewService.deleteById(ctx.params.id);
@@ -63,12 +71,13 @@ deleteReview.validationScheme = {
     id: Joi.number().integer().positive(),
   },
 };
+
 export default (parent: KoaRouter) => {
   const router = new Router<FilmAppState, FilmAppContext>({
     prefix: '/reviews',
   });
 
-  
+  router.get('/', requireAuthentication,validate(getAllReviews.validationScheme), getAllReviews  );
   router.post('/', requireAuthentication,validate(createReview.validationScheme) ,createReview);
   router.get('/:id', requireAuthentication,validate(getReviewById.validationScheme) ,getReviewById);
   router.put('/:id', requireAuthentication,validate(updateReview.validationScheme),updateReview);

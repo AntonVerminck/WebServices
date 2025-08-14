@@ -23,10 +23,22 @@ const data = {
       regiseur: 'James Gunn',
     },
   ],
+  reviews: [
+    {
+      id: 1,
+      review_titel: 'Een',
+      review_content: 'Twee',
+      film_id: 3,
+      rating: 4,
+      user_id: 1,
+
+    },
+  ],
 };
 
 const dataToDelete = {
   films: [1, 2, 3],
+  reviews: [1],
 };
 
 // 👇 2
@@ -202,5 +214,29 @@ describe('Films', () => {
 
       expect(response.statusCode).toBe(403);
     });
+  });
+
+  describe('GET /api/films/:id/reviews', () => {
+    beforeAll(async () => {
+      await prisma.film.createMany({ data: data.films });
+      await prisma.review.createMany({ data: data.reviews});
+    });
+
+    afterAll(async () => {
+      await prisma.review.deleteMany({
+        where: { id: { in: dataToDelete.reviews } },
+      });
+      await prisma.film.deleteMany({
+        where: { id: { in: dataToDelete.films } },
+      });
+    });
+
+    it('should 200 and return the review', async () => {
+      const response = await request.get(`${url}/3/reviews`)
+        .set('Authorization', adminHeader);
+      console.log(response.body);
+      expect(response.statusCode).toBe(200);
+    });
+
   });
 });

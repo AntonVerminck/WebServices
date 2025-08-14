@@ -11,7 +11,7 @@ async function main() {
   const passwordHash = await hashPassword('12345678');
   await prisma.user.createMany({
     data: [
-       {
+      {
         id: 1,
         voornaam: 'Anton',
         achternaam: 'Verminck',
@@ -28,7 +28,6 @@ async function main() {
         roles: JSON.stringify([Role.USER]),
 
       },
-    
      
     ],
   });
@@ -40,12 +39,12 @@ async function main() {
       {
         id: 1,
         titel: 'Superman',
-        regiseur: 'J. Gunn'
+        regiseur: 'J. Gunn',
       },
       {
         id: 2,
         titel: 'Gauradians of the Galaxy',
-        regiseur: 'j. Gunn'
+        regiseur: 'j. Gunn',
 
       },
     ],
@@ -62,21 +61,21 @@ async function main() {
         user_id: 1,
         film_id: 1,
         rating: 5,
-        review_titel: "Kan beter",
-        review_content: "Deze fim was een tegenslag"
+        review_titel: 'Kan beter',
+        review_content: 'Deze fim was een tegenslag',
       },
     ],
-    });
+  });
   await prisma.screening.createMany({
     data: [
       {
         id: 1,
         film_id: 1,
-        naam: "Kinepolis Gent",
+        naam: 'Kinepolis Gent',
         huisnummer: 8,
-        straat: "Ter Platen",
+        straat: 'Ter Platen',
         postcode: 9000,
-        datum: new Date("2025-01-01")
+        datum: new Date('2025-01-01'),
       },
  
     ],

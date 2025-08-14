@@ -4,6 +4,7 @@ import installHealthRouter from './health';
 import installFilmRouter from './film';
 import installSessionRouter from './session';
 import installUserRouter from './user';
+import installReviewRouter from './review';
 
 import type { FilmAppContext, FilmAppState, KoaApplication } from '../types/koa';
 
@@ -16,6 +17,7 @@ export default (app: KoaApplication) => {
   installFilmRouter(router);
   installHealthRouter(router);
   installSessionRouter(router);
+  installReviewRouter(router);
 
   app.use(router.routes()).use(router.allowedMethods());
 };

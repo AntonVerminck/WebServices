@@ -1,5 +1,6 @@
 import Router from '@koa/router';
 import * as filmService from '../service/filmService';
+import * as reviewService from '../service/reviewService';
 import type { FilmAppContext, FilmAppState} from '../types/koa';
 import type { KoaContext, KoaRouter } from '../types/koa';
 import Role from '../core/roles';
@@ -15,6 +16,9 @@ import type { IdParams } from '../types/common';
 import Joi from 'joi';
 import validate from '../core/validation'; 
 import { requireAuthentication, makeRequireRole } from '../core/auth';
+import type {
+  GetAllReviewsResponse,
+} from '../types/review';
 
 const getAllFilms = async (ctx: KoaContext<GetAllFilmsResponse>) => {
   const films = await filmService.getAll();
@@ -69,11 +73,13 @@ deleteFilms.validationScheme = {
   },
 };
 
-const getReviewsByFilmId = async (ctx: KoaContext<void, IdParams>) => {
-  filmService.getReviewsByFilmId(ctx.params.id);
-  ctx.status = 204;
+const getReviewsByFilmId = async (ctx: KoaContext<GetAllReviewsResponse, IdParams>) => {
+  const reviews = await reviewService.getReviewsByFilmId(ctx.params.id);
+  ctx.body = {
+    items: reviews,
+  }; 
 };
-deleteFilms.validationScheme = {
+getReviewsByFilmId.validationScheme = {
   params: {
     id: Joi.number().integer().positive(),
   },
@@ -92,6 +98,6 @@ export default (parent: KoaRouter) => {
     validate(getFilmsById.validationScheme), getFilmsById);
   router.put('/:id',requireAuthentication,requireAdmin,validate(updateFilms.validationScheme), updateFilms);
   router.delete('/:id',requireAuthentication,requireAdmin,validate(deleteFilms.validationScheme) ,deleteFilms);
-  router.get('/:id/reviews',requireAuthentication ,getReviewsByFilmId);
+  router.get('/:id/reviews',requireAuthentication, validate(getReviewsByFilmId.validationScheme) ,getReviewsByFilmId);
   parent.use(router.routes()).use(router.allowedMethods());
 };

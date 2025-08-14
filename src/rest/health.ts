@@ -4,11 +4,30 @@ import type { FilmAppContext, FilmAppState} from '../types/koa';
 import type { KoaContext, KoaRouter } from '../types/koa';
 import type { PingResponse, VersionResponse } from '../types/health';
 import validate from '../core/validation';
+
+/**
+ * @api {get} /health/ping health check
+ * @apiName ping
+ * @apiGroup Health
+ *
+ *
+ * @apiSuccess {String} pong 
+ */
+
 const ping = async (ctx: KoaContext<PingResponse>) => {
   ctx.status = 200;
   ctx.body = healthService.ping();
 };
 ping.validationScheme = null;
+
+/**
+ * @api {get} /health/version health check
+ * @apiName getVersion
+ * @apiGroup Health
+ *
+ *
+ * @apiSuccess {String} Versie gelinkt aan package.json
+ */
 
 const getVersion = async (ctx: KoaContext<VersionResponse>) => {
   ctx.status = 200;

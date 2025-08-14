@@ -11,8 +11,7 @@ This is the backend used in lessons Web Services.
 
 ## Before starting/testing this project
 
-Create a `.env` (development) or `.env.test` (testing) file with the following template.
-Complete the environment variables with your secrets, credentials, etc.
+Maak een `.env` (development) en `.env.test` (testing) volgens een eigen lokale databank.
 
 ```bash
 NODE_ENV=development
@@ -30,8 +29,21 @@ AUTH_JWT_SECRET=<YOUR-JWT-SECRET>
 - Run the migrations: `yarn migrate:dev`
 - Start the development server: `yarn start:dev`
 
-### Production
 
+
+### Testing
+Zorg dat de variables zoals NODE_ENV correct zijn ingesteld in .env.test voor testing.
+
+- Enable Corepack: `corepack enable`
+- Install dependencies: `yarn`
+- Make sure a `.env.test` exists (see above)
+- Run the migrations: `yarn migrate:test`
+- Build the project: `yarn test`
+- Start the production server: `yarn test:coverage`
+
+
+### Production
+Zorg opnieuw dat de env settings correct staan met de nodige aan passing aan NODE_ENV=production
 - Enable Corepack: `corepack enable`
 - Install all dependencies: `yarn`
 - Make sure a `.env` exists (see above) or set the environment variables in your production environment

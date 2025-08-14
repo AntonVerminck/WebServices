@@ -6,7 +6,7 @@ export interface Screening extends Entity {
   straat: string ;
   huisnummer: number;
   naam: string;
-  datum: Date
+  datum: Date;
 }
 
 export interface ScreeningCreateInput {
@@ -15,7 +15,7 @@ export interface ScreeningCreateInput {
   straat: string ;
   huisnummer: number;
   naam: string;
-  datum: Date
+  datum: Date;
 }
 
 export interface ScreeningUpdateInput extends ScreeningCreateInput {}

@@ -18,16 +18,21 @@
 
 ### Lokaal
 
-- Gebruikersnaam/e-mailadres:
-- Wachtwoord:
+- Gebruikersnaam/e-mailadres: anton@email.be
+- Wachtwoord: 1234678
+
+- Gebruikersnaam/e-mailadres: tom@email.be
+- Wachtwoord: 12345678
 
 ### Online
 
-- Gebruikersnaam/e-mailadres:
-- Wachtwoord:
+- Gebruikersnaam/e-mailadres: anton@email.be
+- Wachtwoord: 1234678
 
-> Vul eventueel aan met extra accounts voor administrators of andere rollen.
-yarn add config
+- Gebruikersnaam/e-mailadres: tom@email.be
+- Wachtwoord: 12345678
+
+
 ## Projectbeschrijving
 
 > Omschrijf hier duidelijk waarover jouw project gaat. Voeg een domeinmodel (of EERD) toe om jouw entiteiten te verduidelijken.
@@ -39,6 +44,26 @@ yarn add config
 > Indien je als extra Swagger koos, dan voeg je hier een link toe naar jouw online documentatie. Swagger geeft nl. exact (en nog veel meer) wat je hieronder moet schrijven.
 
 ### Gebruikers
+
+- `GET /api/users`: alle gebruikers ophalen
+- `GET /api/users/:id`: gebruiker met een bepaald id ophalen
+
+### Reviews
+
+- `GET /api/users`: alle gebruikers ophalen
+- `GET /api/users/:id`: gebruiker met een bepaald id ophalen
+
+### Films
+
+- `GET /api/users`: alle gebruikers ophalen
+- `GET /api/users/:id`: gebruiker met een bepaald id ophalen
+
+### Screenings
+
+- `GET /api/users`: alle gebruikers ophalen
+- `GET /api/users/:id`: gebruiker met een bepaald id ophalen
+
+### Health
 
 - `GET /api/users`: alle gebruikers ophalen
 - `GET /api/users/:id`: gebruiker met een bepaald id ophalen
@@ -108,8 +133,10 @@ De extra technologie is api.doc ivp swagger.
 
 ### Web Services
 
-> Zijn er gekende bugs?
+Neen, geen gekende bugs.
 
 ## Reflectie
 
-Ik had eerst veel bugs bij het online zetten van render, errors hierond waren moeilijk op te lossen en heb uiteindelijk een nieuwe repo gebruikt om uit te vogelen waar de fout zat.  
+Eerst wou ik sequelize gebruiken, maar kreeg dit niet werkende, voor de herexamens heb ik gekozen om met api doc te werken.
+Mogelijke extra's zijn reviews ophalen binnen een bepaalde periode, om recente reviews van verschillende films te tonen.
+Het is zeker een vak waar veel tijd in sluipt om naast het volgen van de opzet van de budget app ook zelf volledig te begrijpen wat elke lijn code doet.

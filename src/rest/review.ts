@@ -16,7 +16,10 @@ import validate from '../core/validation';
 import { requireAuthentication } from '../core/auth';
 
 const createReview = async (ctx: KoaContext<CreateReviewResponse, void, CreateReviewRequest>) => {
-  const review = await reviewService.create(ctx.request.body);
+  const review = await reviewService.create({
+    ...ctx.request.body, 
+    user_id: ctx.state.session.userId,
+  });
   ctx.status = 201;
   ctx.body = review;
 };
@@ -25,6 +28,7 @@ createReview.validationScheme = {
     review_titel: Joi.string().min(1).max(255),
     review_content: Joi.string(),
     rating: Joi.number().min(1).max(10),  
+    film_id:Joi.number().positive(),
   },
 };
 

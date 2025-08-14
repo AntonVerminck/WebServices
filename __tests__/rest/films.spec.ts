@@ -34,11 +34,24 @@ const data = {
 
     },
   ],
+  screenings: [
+    {
+      id: 1,
+      postcode: 9000,
+      naam: 'Kinepolis Gent',
+      straat: 'De belangrijke straat',
+      huisnummer: 3,
+      film_id: 1,
+      datum: new Date('2026-01-01T20:00:00Z'),
+
+    },
+  ],
 };
 
 const dataToDelete = {
   films: [1, 2, 3],
   reviews: [1],
+  screenings: [1],
 };
 
 // 👇 2
@@ -134,7 +147,6 @@ describe('Films', () => {
           regiseur: 'iemand',
         })
         .set('Authorization', adminHeader);
-      console.log('Response body:', response.body);  
       expect(response.statusCode).toBe(201);
       expect(response.body).toBeDefined();
       expect(response.body.titel).toBe('Shrek 1');
@@ -194,7 +206,6 @@ describe('Films', () => {
           regiseur: 'Christoffer Nolan',
         })
         .set('Authorization', adminHeader);
-      console.log(response.body);
       expect(response.statusCode).toBe(200);
       expect(response.body).toEqual({
         id: 2,
@@ -234,8 +245,33 @@ describe('Films', () => {
     it('should 200 and return the review', async () => {
       const response = await request.get(`${url}/3/reviews`)
         .set('Authorization', adminHeader);
-      console.log(response.body);
       expect(response.statusCode).toBe(200);
+    });
+
+  });
+
+  describe('GET /api/films/:id/screeings', () => {
+    beforeAll(async () => {
+      await prisma.film.createMany({ data: data.films });
+      await prisma.screening.createMany({ data: data.screenings});
+    });
+
+    afterAll(async () => {
+      await prisma.screening.deleteMany({
+        where: { id: { in: dataToDelete.screenings } },
+      });
+      await prisma.film.deleteMany({
+        where: { id: { in: dataToDelete.films } },
+      });
+    });
+
+    it('should 200 and return the screening', async () => {
+      const response = await request.get(`${url}/1/screenings`)
+        .set('Authorization', adminHeader);
+      expect(response.statusCode).toBe(200);
+      expect(response.body.items.length).toBe(1);
+      expect(response.body.items[0].id).toBe(1);
+      
     });
 
   });

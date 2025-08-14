@@ -22,7 +22,7 @@ const createScreening = async (ctx: KoaContext<CreateScreeningResponse, void, Cr
 };
 createScreening.validationScheme = {
   body: {
-    email: Joi.string().email(),
+    film_id: Joi.number().positive(),
     password: Joi.string(),
   },
 };

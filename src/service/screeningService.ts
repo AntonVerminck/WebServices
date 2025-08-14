@@ -98,14 +98,11 @@ export const deleteById = async (id: number): Promise<void> => {
   }
 };
 
-export const getScreeningsByFilmId = async (id: number): Promise<void> => {
-  try {
-    await prisma.screening.delete({
-      where: {
-        id,
-      },
-    });
-  } catch (error) {
-    throw handleDBError(error);
-  }
+export const getScreeningsByFilmId = async (filmId: number): Promise<Screening[]> => {
+  return prisma.screening.findMany({
+    where: {
+      film_id: filmId,
+    },
+    select: SCREENING_SELECT,
+  });
 };

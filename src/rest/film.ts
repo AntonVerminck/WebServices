@@ -1,6 +1,7 @@
 import Router from '@koa/router';
 import * as filmService from '../service/filmService';
 import * as reviewService from '../service/reviewService';
+import * as screeningService from '../service/screeningService';
 import type { FilmAppContext, FilmAppState} from '../types/koa';
 import type { KoaContext, KoaRouter } from '../types/koa';
 import Role from '../core/roles';
@@ -19,6 +20,9 @@ import { requireAuthentication, makeRequireRole } from '../core/auth';
 import type {
   GetAllReviewsResponse,
 } from '../types/review';
+import type {
+  GetAllScreeningsResponse,
+} from '../types/screening';
 
 const getAllFilms = async (ctx: KoaContext<GetAllFilmsResponse>) => {
   const films = await filmService.getAll();
@@ -85,6 +89,18 @@ getReviewsByFilmId.validationScheme = {
   },
 };
 
+const getScreeningsByFilmId = async (ctx: KoaContext<GetAllScreeningsResponse, IdParams>) => {
+  const reviews = await screeningService.getScreeningsByFilmId(ctx.params.id);
+  ctx.body = {
+    items: reviews,
+  }; 
+};
+getScreeningsByFilmId.validationScheme = {
+  params: {
+    id: Joi.number().integer().positive(),
+  },
+};
+
 export default (parent: KoaRouter) => {
   const router = new Router<FilmAppState, FilmAppContext>({
     prefix: '/films',
@@ -92,12 +108,33 @@ export default (parent: KoaRouter) => {
 
   const requireAdmin = makeRequireRole(Role.ADMIN);
 
-  router.get('/', requireAuthentication,validate(getAllFilms.validationScheme) ,getAllFilms);
-  router.post('/',requireAuthentication,requireAdmin,validate(createFilms.validationScheme) ,createFilms);
-  router.get('/:id',requireAuthentication,validate(getFilmsById.validationScheme) ,
-    validate(getFilmsById.validationScheme), getFilmsById);
-  router.put('/:id',requireAuthentication,requireAdmin,validate(updateFilms.validationScheme), updateFilms);
-  router.delete('/:id',requireAuthentication,requireAdmin,validate(deleteFilms.validationScheme) ,deleteFilms);
-  router.get('/:id/reviews',requireAuthentication, validate(getReviewsByFilmId.validationScheme) ,getReviewsByFilmId);
+  router.get('/', 
+    requireAuthentication,validate(getAllFilms.validationScheme) ,
+    getAllFilms);
+
+  router.post('/',
+    requireAuthentication,requireAdmin,validate(createFilms.validationScheme) ,
+    createFilms);
+
+  router.get('/:id',
+    requireAuthentication,validate(getFilmsById.validationScheme) ,
+    getFilmsById);
+
+  router.put('/:id',
+    requireAuthentication,requireAdmin,validate(updateFilms.validationScheme),
+    updateFilms);
+
+  router.delete('/:id',
+    requireAuthentication,requireAdmin,validate(deleteFilms.validationScheme) ,
+    deleteFilms);
+
+  router.get('/:id/reviews',
+    requireAuthentication, validate(getReviewsByFilmId.validationScheme) ,
+    getReviewsByFilmId);
+
+  router.get(
+    '/:id/screenings',
+    requireAuthentication, validate(getScreeningsByFilmId.validationScheme),
+    getScreeningsByFilmId);
   parent.use(router.routes()).use(router.allowedMethods());
 };

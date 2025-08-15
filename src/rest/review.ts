@@ -39,6 +39,7 @@ const createReview = async (ctx: KoaContext<CreateReviewResponse, void, CreateRe
 };
 createReview.validationScheme = {
   body: {
+    film_id:  Joi.number().integer().positive(),
     review_titel: Joi.string().min(1).max(255),
     review_content: Joi.string(),
     rating: Joi.number().min(1).max(10),  

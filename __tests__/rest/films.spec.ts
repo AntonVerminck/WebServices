@@ -249,7 +249,7 @@ describe('Films', () => {
 
   });
 
-  describe('GET /api/films/:id/screeings', () => {
+  describe('GET /api/films/:id/screenings', () => {
     beforeAll(async () => {
       await prisma.film.createMany({ data: data.films });
       await prisma.screening.createMany({ data: data.screenings});

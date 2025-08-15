@@ -69,6 +69,7 @@ getAllScreenings.validationScheme = null;
  * @apiError (status: 401) Unauthorized, no authorization detected  .
  *   @apiError (status: 404) NotFound.
  */
+
 const getScreeningById = async (ctx: KoaContext<GetScreeningByIdResponse, IdParams>) => {
   const screening = await screeningService.getById(Number(ctx.params.id));
   ctx.body = screening;

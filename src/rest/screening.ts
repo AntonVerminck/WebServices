@@ -22,8 +22,12 @@ const createScreening = async (ctx: KoaContext<CreateScreeningResponse, void, Cr
 };
 createScreening.validationScheme = {
   body: {
-    film_id: Joi.number().positive(),
-    password: Joi.string(),
+    film_id: Joi.number().integer().positive(),
+    straat: Joi.string(),
+    naam: Joi.string(),
+    postcode: Joi.number().positive(),
+    huisnummer: Joi.number().positive(),
+    datum: Joi.date(),
   },
 };
 const getScreeningById = async (ctx: KoaContext<GetScreeningByIdResponse, IdParams>) => {
@@ -41,8 +45,12 @@ const updateScreening = async (ctx: KoaContext<UpdateScreeningResponse, IdParams
 };
 updateScreening.validationScheme = {
   body: {
-    email: Joi.string().email(),
-    password: Joi.string(),
+    film_id: Joi.number().integer().positive(),
+    straat: Joi.string(),
+    naam: Joi.string(),
+    postcode: Joi.number().positive(),
+    huisnummer: Joi.number().positive(),
+    datum: Joi.date(),
   },
 };
 const deleteScreening = async (ctx: KoaContext<void, IdParams>) => {

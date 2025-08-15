@@ -6,7 +6,7 @@ import type { PingResponse, VersionResponse } from '../types/health';
 import validate from '../core/validation';
 
 /**
- * @api {get} /health/ping health check
+ * @api {get} /health/ping ping the server
  * @apiName ping
  * @apiGroup Health
  *
@@ -21,7 +21,7 @@ const ping = async (ctx: KoaContext<PingResponse>) => {
 ping.validationScheme = null;
 
 /**
- * @api {get} /health/version health check
+ * @api {get} /health/version Ask what the current version is
  * @apiName getVersion
  * @apiGroup Health
  *

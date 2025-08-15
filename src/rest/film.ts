@@ -28,7 +28,7 @@ import type {
  * @api {get} /films get all films
  * @apiName getAllFilms
  * @apiGroup films
- * @apiSuccess {Films[]} items is List of Films
+ * @apiSuccess {Films[]} items List of Films
  * @apiError (status: 400) BadRequest, Invalid data provided.
  * @apiError (status: 401) Unauthorized, login error.
  */
@@ -46,10 +46,9 @@ getAllFilms.validationScheme = null;
  * @apiName createFilms
  * @apiGroup films
  * 
- * @apibody {String} titel: de titel van film
- * @apibody {String} regiseur: persson die regiseur is van de film
+ * @apibody {String} titel de titel van film
+ * @apibody {String} regiseur persson die regiseur is van de film
  *  
- * @apiSuccess status 201
  * @apiSuccess {Film} an Film object
  * @apiError (status: 400) BadRequest Invalid data provided.
  * @apiError (status: 401) Unauthorized, no authorization detected  .
@@ -71,7 +70,7 @@ createFilms.validationScheme = {
  * @api {get} /films/:id Get a film by its Id
  * @apiName getFilmByID
  * @apiGroup Films
- * @apiSuccess (200) {Film} an Film object 
+ * @apiSuccess {Film} an Film object 
  * @apiParam id the Film id
  * @apiError (status: 400) BadRequest Invalid data provided.
  * @apiError (status: 401) Unauthorized, no authorization detected  .
@@ -135,9 +134,9 @@ deleteFilms.validationScheme = {
  * @apiGroup Films
   * @apiParam {Number} id the Film id
  * @apiSuccess {Review[]} List of Review objects
- * @apiError (400) BadRequest Invalid data provided.
- * @apiError (401) Unauthorized, login error.
- * @apiError (status: 404) NotFound.
+ * @apiError (status: 400) BadRequest Invalid data provided.
+ * @apiError (status: 401) Unauthorized, login error.
+ * @apiError (status: 404) NotFound. Data with this id don't exist
  */
 
 const getReviewsByFilmId = async (ctx: KoaContext<GetAllReviewsResponse, IdParams>) => {
@@ -156,10 +155,10 @@ getReviewsByFilmId.validationScheme = {
  * @apiName getScreeningsByFilmId
  * @apiGroup Films
   * @apiParam {Number} id the Film id
- * @apiSuccess {Screening[]} List of Screenig objects
- * @apiError (400) BadRequest Invalid data provided.
- * @apiError (401) Unauthorized, login error.
- * @apiError (status: 404) NotFound.
+ * @apiSuccess {Screening[]} items list of Screening objects
+ * @apiError (status: 400) BadRequest Invalid data provided.
+ * @apiError (status: 401) Unauthorized, login error.
+ * @apiError (status: 404) NotFound. Data with this id don't exist
  */
 
 const getScreeningsByFilmId = async (ctx: KoaContext<GetAllScreeningsResponse, IdParams>) => {

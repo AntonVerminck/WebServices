@@ -15,6 +15,20 @@ import Joi from 'joi';
 import validate from '../core/validation'; 
 import { requireAuthentication } from '../core/auth';
 
+/**
+ * @api {post} /reviews Create a new Review 
+ * @apiName createreviews
+ * @apiGroup reviews
+ * 
+ * @apibody {String} titel de titel van Review
+ * @apibody {String} regiseur persson die regiseur is van de Review
+ *  
+ * @apiSuccess {Review} an Review object
+ * @apiError (status: 400) BadRequest Invalid data provided.
+ * @apiError (status: 401) Unauthorized, no authorization detected  .
+
+ */
+
 const createReview = async (ctx: KoaContext<CreateReviewResponse, void, CreateReviewRequest>) => {
   const review = await reviewService.create({
     ...ctx.request.body, 
@@ -28,9 +42,18 @@ createReview.validationScheme = {
     review_titel: Joi.string().min(1).max(255),
     review_content: Joi.string(),
     rating: Joi.number().min(1).max(10),  
-    film_id:Joi.number().positive(),
+    Review_id:Joi.number().positive(),
   },
 };
+
+/**
+ * @api {get} /reviews get all reviews
+ * @apiName getAllreviews
+ * @apiGroup reviews
+ * @apiSuccess {reviews[]} items List of reviews
+ * @apiError (status: 400) BadRequest, Invalid data provided.
+ * @apiError (status: 401) Unauthorized, login error.
+ */
 
 const getAllReviews = async (ctx: KoaContext<GetAllReviewsResponse>) => {
   ctx.body = {
@@ -41,7 +64,16 @@ const getAllReviews = async (ctx: KoaContext<GetAllReviewsResponse>) => {
   };
 };
 getAllReviews.validationScheme = null;
-
+/**
+ * @api {get} /reviews/:id Get a Review by its Id
+ * @apiName getReviewByID
+ * @apiGroup reviews
+ * @apiSuccess {Review} an Review object 
+ * @apiParam id the Review id
+ * @apiError (status: 400) BadRequest Invalid data provided.
+ * @apiError (status: 401) Unauthorized, no authorization detected  .
+ *   @apiError (status: 404) NotFound.
+ */
 const getReviewById = async (ctx: KoaContext<GetReviewByIdResponse, IdParams>) => {
   const review = await reviewService.getById(Number(ctx.params.id));
   ctx.body = review;
@@ -51,6 +83,16 @@ getReviewById.validationScheme = {
     id: Joi.number().integer().positive(),
   },
 };
+/**
+ * @api {put} /reviews/:id Update info of a Review with its Id
+ * @apiName updatereviews
+ * @apiGroup reviews
+ * @apiParam id the Review id
+ * @apiSuccess {reviews} returns updated Review
+ * @apiError (status: 400) BadRequest Invalid data provided.
+ * @apiError (status: 401) Unauthorized, login error.
+ *  @apiError (status: 404) NotFound.
+ */
 
 const updateReview = async (ctx: KoaContext<UpdateReviewResponse, IdParams, UpdateReviewRequest>) => {
   const review = await reviewService.updateById(ctx.params.id, ctx.request.body);
@@ -65,6 +107,15 @@ updateReview.validationScheme = {
     rating: Joi.number().min(1).max(10),  
   },
 };
+/**
+ * @api {Delete} /reviews/:id Delete Review by its Id
+ * @apiName deletereviews
+ * @apiGroup reviews
+* @apiParam {Number}id the Review id
+ * @apiError (status: 400) BadRequest Invalid data provided.
+ * @apiError (status: 401) Unauthorized, login error.
+ *  @apiError (status: 404) NotFound.
+ */
 
 const deleteReview = async (ctx: KoaContext<void, IdParams>) => {
   reviewService.deleteById(ctx.params.id);

@@ -4,10 +4,10 @@ This is the backend used in lessons Web Services.
 
 ## Requirements
 
-- [NodeJS v17 or higher](https://nodejs.org/)
-- [Yarn](https://yarnpkg.com/)
-- [MySQL v8](https://dev.mysql.com/downloads/windows/installer/8.0.html) (no Oracle account needed, click the tiny link below the grey box)
-- [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) (no Oracle account needed, click the tiny link below the grey box)
+- NodeJS v17 or higher
+- Yarn
+- MySQL v8
+- MySQL Workbench
 
 ## Before starting/testing this project
 
@@ -42,26 +42,12 @@ Zorg dat de variables zoals NODE_ENV correct zijn ingesteld in .env.test voor te
 - Start the production server: `yarn test:coverage`
 
 
-### Production
+### Production, commando's idem als mijn opzet bij render:
 Zorg opnieuw dat de env settings correct staan met de nodige aan passing aan NODE_ENV=production
 - Enable Corepack: `corepack enable`
 - Install all dependencies: `yarn`
-- Make sure a `.env` exists (see above) or set the environment variables in your production environment
+- Op render geef de variablen mee en zet NODE_ENV als production, lokaal maak gebruik van .env of maak aanpassingen in config/production
 - Run the migrations: `yarn prisma migrate deploy`
 - Build the project: `yarn build`
 - Start the production server: `node build/src/index.js`
 
-## Test this project
-
-This server will create the given database when the server is started.
-
-- Enable Corepack: `corepack enable`
-- Install all dependencies: `yarn`
-- Make sure `.env.test` exists (see above)
-- Run the migrations: `yarn migrate:test`
-- Run the tests: `yarn test`
-  - This will start a new server for each test suite that runs, you won't see any output as logging is disabled to make output more clean.
-  - The user suite will take 'long' (around 6s) to complete, this is normal as many cryptographic operations are being performed.
-- Run the tests with coverage: `yarn test:coverage`
-  - This will generate a coverage report in the `__tests__/coverage` folder.
-  - Open `__tests__/coverage/lcov-report/index.html` in your browser to see the coverage report.

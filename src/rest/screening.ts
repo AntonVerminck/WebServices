@@ -74,7 +74,7 @@ const getScreeningById = async (ctx: KoaContext<GetScreeningByIdResponse, IdPara
   ctx.body = screening;
 };
 getScreeningById.validationScheme = {
-  body: {
+  params: {
     id: Joi.number().integer().positive(),
   },
 };

@@ -23,6 +23,8 @@ const handleDBError = (error: any) => {
         throw ServiceError.notFound('This screening does not exist');
       case message.includes('fk_review_user'):
         throw ServiceError.notFound('This user does not exist');
+      case message.includes('fk_review_film'):
+        throw ServiceError.notFound('This film does not exist');
       case message.includes('screening'):
         throw ServiceError.notFound('No screening with this id exists');
       case message.includes('film'):
@@ -38,11 +40,19 @@ const handleDBError = (error: any) => {
     switch (true) {
       case message.includes('film_id'):
         throw ServiceError.conflict(
-          'This Movie does not exist or is still linked to review',
+          'This Movie does not exist or is still linked',
+        );
+      case message.includes('review_id'):
+        throw ServiceError.conflict(
+          'This review does not exist or is still linked',
+        );
+      case message.includes('screening_id'):
+        throw ServiceError.conflict(
+          'This screening does not exist or is still linked',
         );
       case message.includes('user_id'):
         throw ServiceError.conflict(
-          'This user does not exist or is still linked to review',
+          'This user does not exist or is still linked',
         );
     }
   }

@@ -131,8 +131,7 @@ export default (parent: KoaRouter) => {
   router.get('/', requireAuthentication,validate(getAllScreenings.validationScheme) ,getAllScreenings);
 
   router.post('/', requireAuthentication , RequireAdmin , validate(createScreening.validationScheme) , createScreening);
-  router.get('/:id', requireAuthentication , validate(getScreeningById.validationScheme), 
-    validate(createScreening.validationScheme) ,getScreeningById);
+  router.get('/:id', requireAuthentication , validate(getScreeningById.validationScheme),getScreeningById);
   router.put('/:id', requireAuthentication ,RequireAdmin , validate(updateScreening.validationScheme),updateScreening);
   router.delete('/:id',RequireAdmin , validate(deleteScreening.validationScheme) , deleteScreening);
 

@@ -4,8 +4,8 @@ import ServiceError from '../core/serviceError'; // 👈 1
 import handleDBError from './_handleDBError';
 // Get all screenings
 const SCREENING_SELECT = {
-  film_id: true,
   id: true,
+  film_id: true,
   naam: true,
   straat: true,
   postcode: true,

@@ -163,7 +163,6 @@ describe('Films', () => {
     });
 
     afterAll(async () => {
-    // Clean up any remaining films
       await prisma.film.deleteMany({
         where: { id: { in: dataToDelete.films } },
       });

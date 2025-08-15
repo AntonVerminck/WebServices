@@ -18,15 +18,15 @@
 
 ### Lokaal
 
-- Gebruikersnaam/e-mailadres: anton@email.be
+- email: anton@email.be
 - Wachtwoord: 1234678
 
-- Gebruikersnaam/e-mailadres: tom@email.be
+- email: tom@email.be
 - Wachtwoord: 12345678
 
 ### Online
 
-- Gebruikersnaam/e-mailadres: anton@email.be
+- email: anton@email.be
 - Wachtwoord: 1234678
 
 - Gebruikersnaam/e-mailadres: tom@email.be
@@ -47,21 +47,39 @@
 
 - `GET /api/users`: alle gebruikers ophalen
 - `GET /api/users/:id`: gebruiker met een bepaald id ophalen
+- `POST /api/films/:id`: gebruiker met een bepaald id ophalen
+- `PUT /api/films/:id`: gebruiker met een bepaald id ophalen
+- `DELETE /api/films/:id`: gebruiker met een bepaald id ophalen
+
 
 ### Reviews
 
-- `GET /api/users`: alle gebruikers ophalen
-- `GET /api/users/:id`: gebruiker met een bepaald id ophalen
+- `GET /api/reviews`: alle gebruikers ophalen
+- `GET /api/reviews/:id`: gebruiker met een bepaald id ophalen
+- `GET /api/reviews/:id`: gebruiker met een bepaald id ophalen
+- `POST /api/films/:id`: gebruiker met een bepaald id ophalen
+- `PUT /api/films/:id`: gebruiker met een bepaald id ophalen
+- `DELETE /api/films/:id`: gebruiker met een bepaald id ophalen
+
 
 ### Films
 
-- `GET /api/users`: alle gebruikers ophalen
-- `GET /api/users/:id`: gebruiker met een bepaald id ophalen
+- `GET /api/films`: alle gebruikers ophalen
+- `GET /api/films/:id`: gebruiker met een bepaald id ophalen
+- `GET /api/films/:id/screenings`: gebruiker met een bepaald id ophalen
+- `GET /api/films/:id/reviews`: gebruiker met een bepaald id ophalen
+- `POST /api/films/:id`: gebruiker met een bepaald id ophalen
+- `PUT /api/films/:id`: gebruiker met een bepaald id ophalen
+- `DELETE /api/films/:id`: gebruiker met een bepaald id ophalen
 
 ### Screenings
 
-- `GET /api/users`: alle gebruikers ophalen
-- `GET /api/users/:id`: gebruiker met een bepaald id ophalen
+- `GET /api/screenings`: alle gebruikers ophalen
+- `GET /api/screenings/:id`: gebruiker met een bepaald id ophalen
+- `POST /api/screenings/:id`: gebruiker met een bepaald id ophalen
+- `PUT /api/screenings/:id`: gebruiker met een bepaald id ophalen
+- `DELETE /api/screenings/:id`: gebruiker met een bepaald id ophalen
+
 
 ### Health
 

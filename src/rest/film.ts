@@ -27,7 +27,7 @@ import type {
 /**
  * @api {get} /films get all films
  * @apiName getAllFilms
- * @apiGroup Films
+ * @apiGroup films
  * @apiSuccess {Films[]} items is List of Films
  * @apiError (status: 400) BadRequest, Invalid data provided.
  * @apiError (status: 401) Unauthorized, login error.
@@ -44,7 +44,7 @@ getAllFilms.validationScheme = null;
 /**
  * @api {post} /films Create a new film 
  * @apiName createFilms
- * @apiGroup Films
+ * @apiGroup films
  * 
  * @apibody {String} titel: de titel van film
  * @apibody {String} regiseur: persson die regiseur is van de film
@@ -72,6 +72,7 @@ createFilms.validationScheme = {
  * @apiName getFilmByID
  * @apiGroup Films
  * @apiSuccess (200) {Film} an Film object 
+ * @apiParam id the Film id
  * @apiError (status: 400) BadRequest Invalid data provided.
  * @apiError (status: 401) Unauthorized, no authorization detected  .
  *   @apiError (status: 404) NotFound.
@@ -91,6 +92,7 @@ getFilmsById.validationScheme = {
  * @api {put} /films/:id Update info of a Film with its Id
  * @apiName updateFilms
  * @apiGroup Films
+ * @apiParam id the Film id
  * @apiSuccess {Films} returns updated film
  * @apiError (status: 400) BadRequest Invalid data provided.
  * @apiError (status: 401) Unauthorized, login error.
@@ -112,7 +114,7 @@ updateFilms.validationScheme = {
  * @api {Delete} /films/:id Delete film by its Id
  * @apiName deleteFilms
  * @apiGroup Films
- * @apiSuccess {status: 204}  empty response 
+* @apiParam {Number}id the Film id
  * @apiError (status: 400) BadRequest Invalid data provided.
  * @apiError (status: 401) Unauthorized, login error.
  *  @apiError (status: 404) NotFound.
@@ -131,6 +133,7 @@ deleteFilms.validationScheme = {
  * @api {get} /films/:id/reviews get the reviews of a certain movie
  * @apiName getReviewsByFilmId
  * @apiGroup Films
+  * @apiParam {Number} id the Film id
  * @apiSuccess {Review[]} List of Review objects
  * @apiError (400) BadRequest Invalid data provided.
  * @apiError (401) Unauthorized, login error.
@@ -152,6 +155,7 @@ getReviewsByFilmId.validationScheme = {
  * @api {get} /films/:id/screenings get the screenings of a certain movie
  * @apiName getScreeningsByFilmId
  * @apiGroup Films
+  * @apiParam {Number} id the Film id
  * @apiSuccess {Screening[]} List of Screenig objects
  * @apiError (400) BadRequest Invalid data provided.
  * @apiError (401) Unauthorized, login error.

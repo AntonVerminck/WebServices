@@ -42,7 +42,6 @@ createReview.validationScheme = {
     review_titel: Joi.string().min(1).max(255),
     review_content: Joi.string(),
     rating: Joi.number().min(1).max(10),  
-    Review_id:Joi.number().positive(),
   },
 };
 
@@ -83,6 +82,18 @@ getReviewById.validationScheme = {
     id: Joi.number().integer().positive(),
   },
 };
+
+/**
+ * @api {get} /reviews/:id Get a Review by its Id
+ * @apiName getReviewByID
+ * @apiGroup Reviews
+ * @apiSuccess {Review} an Review object 
+ * @apiParam id the Review id
+ * @apiError (status: 400) BadRequest Invalid data provided.
+ * @apiError (status: 401) Unauthorized, no authorization detected  .
+ *   @apiError (status: 404) NotFound.
+ */
+
 /**
  * @api {put} /reviews/:id Update info of a Review with its Id
  * @apiName updateReviews

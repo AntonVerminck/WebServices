@@ -18,7 +18,7 @@ import { requireAuthentication, makeRequireRole } from '../core/auth';
 /**
  * @api {post} /screenings Create a new Screening 
  * @apiName createScreenings
- * @apiGroup Teviews
+ * @apiGroup Screenings
  * 
  * @apibody {String} titel de titel van Screening
  * @apibody {String} regiseur persson die regiseur is van de Screening

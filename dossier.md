@@ -1,13 +1,9 @@
 # Dossier
 
-> Duid aan welke vakken je volgt en vermeld voor deze vakken de link naar jouw GitHub repository. In het geval je slechts één vak volgt, verwijder alle inhoud omtrent het andere vak uit dit document.
-> Lees <https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet> om te weten hoe een Markdown-bestand opgemaakt moet worden.
-> Verwijder alle instructies (lijnen die starten met >).
-
 - Student: Anton Verminck
-- Studentennummer: xxxxxxxxx
+- Studentennummer: 20218723
 - E-mailadres: <mailto:anton.verminck@student.hogent.be>
-- Demo: <DEMO_LINK_HIER>
+- Demo: <https://hogent.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=640a4046-4feb-4351-9a27-b33a01211c87>
 - GitHub-repository: <https://github.com/HOGENT-frontendweb/frontendweb-2425-AntonVerminck>
 - Web Services:
   - Online versie: <https://webservices-0cc2.onrender.com/>
@@ -33,8 +29,9 @@
 
 ## Projectbeschrijving
 
-Mijn project is enkel het backend gedeelte van een Film App, waar er een oplijsting van Films zijn waar users een review kunnen overschrijven en kijken waar en wanneer deze films te zien zijn. Daarnaast dienen deze FilmApp ook om apart ook reviews en screenings te bekijken op een appart gedeelte van de app, dus niet de film. Waar bij informatie over verschillende screenings kan weergegeven worden. Elke tabel is daarom voorzien aan alle CRUD operaties.
+Mijn project is enkel het backend gedeelte van een Film App, waar er een oplijsting van Films zijn waar users een review kunnen overschrijven en kijken waar en wanneer deze films te zien zijn. Daarnaast dienen deze FilmApp ook om apart ook reviews en screenings te bekijken op een appart gedeelte van de app, dus niet de film. Waar bij informatie over verschillende screenings kan weergegeven worden. Elke tabel is daarom voorzien aan alle CRUD operaties. Als uitbreiding op de voorbeeldapplicatie heb ik dus meerdere eniteiten en relaties voorzien.
 
+![ERD diagram gegeven door onderstaande code](image.png)
 ```mermaid
 erDiagram
 
@@ -173,13 +170,13 @@ erDiagram
 
 ### Web Services
 
-> Hoe heb je jouw applicatie gestructureerd (mappen, design patterns...)?
+Ik heb de structuur van de voorbeeldapplicatie gevolgd en voor mijn 4 tabellen User, Film, Review, Screening de nodige files gemaakt in de folders, rest, service en types. Hierdoor kunnen de nodige api routes worden opgesteld aangezien elke tabel op zichzelf bereikbaar moet zijn. (niet enkel via "ouder" relaties)
 
 ## Extra technologie
 
 ### Web Services
 
-De extra technologie is api.doc ivp swagger. Hiervoor moest je tags in commentaar zetten zodat apidoc weet hoe hij deze commentaar omzet naar html en css (yarn apidoc commando), daarnaast moet deze ook toegevoegd aan de midleware. 
+De extra technologie is api.doc ivp swagger. Hiervoor moest je tags in commentaar zetten zodat apidoc weet hoe hij deze commentaar omzet naar html en css (yarn apidoc commando), daarnaast moet deze ook toegevoegd worden aan de midleware. 
 
 ## Gekende bugs
 

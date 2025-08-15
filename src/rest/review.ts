@@ -17,8 +17,8 @@ import { requireAuthentication } from '../core/auth';
 
 /**
  * @api {post} /reviews Create a new Review 
- * @apiName createreviews
- * @apiGroup reviews
+ * @apiName createReviews
+ * @apiGroup Teviews
  * 
  * @apibody {String} titel de titel van Review
  * @apibody {String} regiseur persson die regiseur is van de Review
@@ -48,8 +48,8 @@ createReview.validationScheme = {
 
 /**
  * @api {get} /reviews get all reviews
- * @apiName getAllreviews
- * @apiGroup reviews
+ * @apiName getAllReviews
+ * @apiGroup Reviews
  * @apiSuccess {reviews[]} items List of reviews
  * @apiError (status: 400) BadRequest, Invalid data provided.
  * @apiError (status: 401) Unauthorized, login error.
@@ -67,7 +67,7 @@ getAllReviews.validationScheme = null;
 /**
  * @api {get} /reviews/:id Get a Review by its Id
  * @apiName getReviewByID
- * @apiGroup reviews
+ * @apiGroup Reviews
  * @apiSuccess {Review} an Review object 
  * @apiParam id the Review id
  * @apiError (status: 400) BadRequest Invalid data provided.
@@ -85,8 +85,8 @@ getReviewById.validationScheme = {
 };
 /**
  * @api {put} /reviews/:id Update info of a Review with its Id
- * @apiName updatereviews
- * @apiGroup reviews
+ * @apiName updateReviews
+ * @apiGroup Reviews
  * @apiParam id the Review id
  * @apiSuccess {reviews} returns updated Review
  * @apiError (status: 400) BadRequest Invalid data provided.
@@ -109,8 +109,8 @@ updateReview.validationScheme = {
 };
 /**
  * @api {Delete} /reviews/:id Delete Review by its Id
- * @apiName deletereviews
- * @apiGroup reviews
+ * @apiName deleteReviews
+ * @apiGroup Reviews
 * @apiParam {Number}id the Review id
  * @apiError (status: 400) BadRequest Invalid data provided.
  * @apiError (status: 401) Unauthorized, login error.

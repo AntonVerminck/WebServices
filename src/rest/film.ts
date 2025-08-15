@@ -27,7 +27,7 @@ import type {
 /**
  * @api {get} /films get all films
  * @apiName getAllFilms
- * @apiGroup films
+ * @apiGroup Films
  * @apiSuccess {Films[]} items List of Films
  * @apiError (status: 400) BadRequest, Invalid data provided.
  * @apiError (status: 401) Unauthorized, login error.
@@ -44,7 +44,7 @@ getAllFilms.validationScheme = null;
 /**
  * @api {post} /films Create a new film 
  * @apiName createFilms
- * @apiGroup films
+ * @apiGroup Films
  * 
  * @apibody {String} titel de titel van film
  * @apibody {String} regiseur persson die regiseur is van de film

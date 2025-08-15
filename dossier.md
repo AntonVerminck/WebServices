@@ -8,9 +8,7 @@
 - Studentennummer: xxxxxxxxx
 - E-mailadres: <mailto:anton.verminck@student.hogent.be>
 - Demo: <DEMO_LINK_HIER>
-- GitHub-repository: <GITHUB_REPO_LINK_HIER>
-- Front-end Web Development
-  - Online versie: <LINK_ONLINE_VERSIE_HIER>
+- GitHub-repository: <https://github.com/HOGENT-frontendweb/frontendweb-2425-AntonVerminck>
 - Web Services:
   - Online versie: <https://webservices-0cc2.onrender.com/>
 
@@ -35,13 +33,51 @@
 
 ## Projectbeschrijving
 
-> Omschrijf hier duidelijk waarover jouw project gaat. Voeg een domeinmodel (of EERD) toe om jouw entiteiten te verduidelijken.
+Mijn project is enkel het backend gedeelte van een Film App, waar er een oplijsting van Films zijn waar users een review kunnen overschrijven en kijken waar en wanneer deze films te zien zijn. Daarnaast dienen deze FilmApp ook om apart ook reviews en screenings te bekijken op een appart gedeelte van de app, dus niet de film. Waar bij informatie over verschillende screenings kan weergegeven worden. Elke tabel is daarom voorzien aan alle CRUD operaties.
+
+```mermaid
+erDiagram
+
+    Film {
+        int film_id PK
+        string titel 
+        string regisseur
+    }
+
+    USER {
+        int user_id PK
+        string voornaam
+        string achternaam
+        string email
+    }
+
+  Screening {
+        int screening_id PK
+        int film_id FK
+        int postcode
+        int huisnummer
+        string straat
+        string naam
+        DateTime Screeningdatum
+    }
+
+    Review {
+        int round_id PK
+        int user_id FK
+        int film_id FK
+        string review_titel
+        string review_content
+        int rating
+}
+
+    %% Relaties
+    Film ||--o{ Screening : ""
+    USER ||--o{ Review : ""
+    Film ||--o{ Review : ""
+
+```
 
 ## API calls
-
-> Maak hier een oplijsting van alle API cals in jouw applicatie. Groepeer dit per entiteit. Hieronder een voorbeeld.
-> Dit is weinig zinvol indien je enkel Front-end Web Development volgt, verwijder dan deze sectie.
-> Indien je als extra Swagger koos, dan voeg je hier een link toe naar jouw online documentatie. Swagger geeft nl. exact (en nog veel meer) wat je hieronder moet schrijven.
 
 ### Gebruikers
 
@@ -87,8 +123,6 @@
 - `GET /api/users/:id`: gebruiker met een bepaald id ophalen
 
 ## Behaalde minimumvereisten
-
-> Duid per vak aan welke minimumvereisten je denkt behaald te hebben
 
 ### Web Services
 
@@ -145,16 +179,16 @@
 
 ### Web Services
 
-De extra technologie is api.doc ivp swagger.
+De extra technologie is api.doc ivp swagger. Hiervoor moest je tags in commentaar zetten zodat apidoc weet hoe hij deze commentaar omzet naar html en css (yarn apidoc commando), daarnaast moet deze ook toegevoegd aan de midleware. 
 
 ## Gekende bugs
 
 ### Web Services
 
-Neen, geen gekende bugs.
+Neen, geen gekende bugs. Daarnaast wel Engels en Nederlands door elkaar gehaald maar heb gekozen om dit zo te laten.
 
 ## Reflectie
-
-Eerst wou ik sequelize gebruiken, maar kreeg dit niet werkende, voor de herexamens heb ik gekozen om met api doc te werken.
+Ik ben eigenlijk een laatste jaar student en had dit vak altijd uitgesteld, maar heb er mij deze herexamns aan gezet om deze volledig af te werken.
+Eerst wou ik Sequelize gebruiken, maar kreeg dit niet werkende in het eerste semester, voor de herexamens heb ik gekozen om met api doc te werken.
 Mogelijke extra's zijn reviews ophalen binnen een bepaalde periode, om recente reviews van verschillende films te tonen.
-Het is zeker een vak waar veel tijd in sluipt om naast het volgen van de opzet van de budget app ook zelf volledig te begrijpen wat elke lijn code doet.
+Het is zeker een vak waar veel tijd in sluipt om naast het volgen van de opzet van de budget app ook zelf volledig te begrijpen wat elke lijn code doet. Allesinds ben ik wel blij dat ik volledig snap wat elke lijn code doet.

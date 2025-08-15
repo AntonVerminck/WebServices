@@ -49,7 +49,10 @@ getAllFilms.validationScheme = null;
  * @apibody {String} titel de titel van film
  * @apibody {String} regiseur persson die regiseur is van de film
  *  
- * @apiSuccess {Film} an Film object
+ * @apiSuccess {nummer} id Het id van de film
+ * @apiSuccess {string} titel De titel van de film
+* @apiSuccess {string} regiseur De maker van de film 
+* 
  * @apiError (status: 400) BadRequest Invalid data provided.
  * @apiError (status: 401) Unauthorized, no authorization detected  .
 
@@ -70,11 +73,16 @@ createFilms.validationScheme = {
  * @api {get} /films/:id Get a film by its Id
  * @apiName getFilmByID
  * @apiGroup Films
- * @apiSuccess {Film} an Film object 
+ * 
  * @apiParam id the Film id
+ * 
+ * @apiSuccess {nummer} id Het id van de film
+ * @apiSuccess {string} titel De titel van de film
+* @apiSuccess {string} regiseur De maker van de film 
+* 
  * @apiError (status: 400) BadRequest Invalid data provided.
- * @apiError (status: 401) Unauthorized, no authorization detected  .
- *   @apiError (status: 404) NotFound.
+ * @apiError (status: 401) Unauthorized no authorization detected  .
+ *   @apiError (status: 404) NotFound
  */
 
 const getFilmsById = async (ctx: KoaContext<GetFilmByIdResponse, IdParams>) => {
@@ -93,9 +101,9 @@ getFilmsById.validationScheme = {
  * @apiGroup Films
  * @apiParam id the Film id
  * @apiSuccess {Films} returns updated film
- * @apiError (status: 400) BadRequest Invalid data provided.
- * @apiError (status: 401) Unauthorized, login error.
- *  @apiError (status: 404) NotFound.
+ * @apiError (status: 400) BadRequest Invalid data provided
+ * @apiError (status: 401) Unauthorized login error
+ *  @apiError (status: 404) NotFound
  */
 
 const updateFilms = async (ctx: KoaContext<UpdateFilmResponse, IdParams, UpdateFilmRequest>) => {
@@ -114,6 +122,7 @@ updateFilms.validationScheme = {
  * @apiName deleteFilms
  * @apiGroup Films
 * @apiParam {Number}id the Film id
+*  @apiSuccess (status: 204)
  * @apiError (status: 400) BadRequest Invalid data provided.
  * @apiError (status: 401) Unauthorized, login error.
  *  @apiError (status: 404) NotFound.
@@ -133,7 +142,7 @@ deleteFilms.validationScheme = {
  * @apiName getReviewsByFilmId
  * @apiGroup Films
   * @apiParam {Number} id the Film id
- * @apiSuccess {Review[]} List of Review objects
+ * @apiSuccess {Review[]} items list of all reviews about this movie
  * @apiError (status: 400) BadRequest Invalid data provided.
  * @apiError (status: 401) Unauthorized, login error.
  * @apiError (status: 404) NotFound. Data with this id don't exist
@@ -158,7 +167,7 @@ getReviewsByFilmId.validationScheme = {
  * @apiSuccess {Screening[]} items list of Screening objects
  * @apiError (status: 400) BadRequest Invalid data provided.
  * @apiError (status: 401) Unauthorized, login error.
- * @apiError (status: 404) NotFound. Data with this id don't exist
+ * @apiError (status: 404) NotFound Data with this id don't exist
  */
 
 const getScreeningsByFilmId = async (ctx: KoaContext<GetAllScreeningsResponse, IdParams>) => {

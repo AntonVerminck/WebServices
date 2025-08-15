@@ -39,7 +39,20 @@ const getAllUsers = async (ctx: KoaContext<GetAllUsersResponse>) => {
   ctx.body = { items: users };
 };
 getAllUsers.validationScheme = null;
+/**
+ * @api {post} /reviews Create a new user 
+ * @apiName registerUser
+ * @apiGroup Users
+ * 
+ * @apibody {String} voornaam de voornaam van de persoon
+ * @apibody {String} achternaam de achternaam van de persoon
+ *   @apibody {String} email de email van de persoon
+ *  @apibody {String} wachtwoord het wachtwoord van de persoon
+ * @apiSuccess {User} User an User object
+ * @apiError (status: 400) BadRequest Invalid data provided.
+ * @apiError (status: 401) Unauthorized, no authorization detected  .
 
+ */
 const registerUser = async (ctx: KoaContext<LoginResponse, void, RegisterUserRequest>) => {
   const token = await userService.register(ctx.request.body);
   ctx.status = 200;

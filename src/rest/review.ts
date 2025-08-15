@@ -18,7 +18,7 @@ import { requireAuthentication } from '../core/auth';
 /**
  * @api {post} /reviews Create a new Review 
  * @apiName createReviews
- * @apiGroup Teviews
+ * @apiGroup Reviews
  * 
  * @apibody {String} titel de titel van Review
  * @apibody {String} regiseur persson die regiseur is van de Review

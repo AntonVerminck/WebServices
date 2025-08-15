@@ -25,7 +25,7 @@ import type {
 } from '../types/screening';
 
 /**
- * @api {get} /films get all films
+ * @api {get} /films Get all films
  * @apiName getAllFilms
  * @apiGroup Films
  * @apiSuccess {Films[]} items List of Films
@@ -122,7 +122,7 @@ updateFilms.validationScheme = {
  * @apiName deleteFilms
  * @apiGroup Films
 * @apiParam {Number}id the Film id
-*  @apiSuccess (status: 204)
+*  @apiSuccess (status: 204) empty empty The response returns nothing
  * @apiError (status: 400) BadRequest Invalid data provided.
  * @apiError (status: 401) Unauthorized, login error.
  *  @apiError (status: 404) NotFound.
@@ -138,7 +138,7 @@ deleteFilms.validationScheme = {
   },
 };
 /**
- * @api {get} /films/:id/reviews get the reviews of a certain movie
+ * @api {get} /films/:id/reviews Get the reviews of a certain movie
  * @apiName getReviewsByFilmId
  * @apiGroup Films
   * @apiParam {Number} id the Film id
@@ -160,7 +160,7 @@ getReviewsByFilmId.validationScheme = {
   },
 };
 /**
- * @api {get} /films/:id/screenings get the screenings of a certain movie
+ * @api {get} /films/:id/screenings Get the screenings of a certain movie
  * @apiName getScreeningsByFilmId
  * @apiGroup Films
   * @apiParam {Number} id the Film id
